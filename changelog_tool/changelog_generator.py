@@ -53,7 +53,7 @@ class RepoRunner():
           for i in range(len(commits) - 1):
             commit_message = commits[i].message
             commit_date = commits[i].committed_date
-            formatted_time = time.strftime("%m-%d-%Y", time.gmtime(commit_date))
+            formatted_time = time.strftime("%Y-%m-%d", time.gmtime(commit_date))
             f.write(formatted_time + "\n")
             diff_text = ""
             for diff in commits[i].diff(commits[i + 1]):

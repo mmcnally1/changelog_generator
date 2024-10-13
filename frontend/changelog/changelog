@@ -1,0 +1,75 @@
+2022-11-26
+Fixed headers and updated edit date in AccountPage and adjusted file names and map files in the server.
+In client/src/pages/AccountPage.js, headers were corrected and the edit date was edited. In server, the file names and corresponding map files for index.js were updated. These changes ensure the correct display of headers and the accurate tracking of edit dates in the AccountPage, as well as proper handling of JavaScript files in the server.
+
+2022-11-26
+Added a feature to delete places from a trip.
+In server/routes.js, a new route was added to handle the request to delete places from a trip. The request is handled by a new controller function that deletes the places from the associated trip and returns a response to the client. This feature allows users to remove places they no longer want on their trip, providing more flexibility and control over their itinerary.
+
+2022-11-26
+Escaped quotes were added to PlaceAdder.js description input.
+The server side file names were updated.
+
+2022-11-26
+Fixed issues with editing trips and places
+Modified components PlaceTable.js and TripTable.js to support editing.
+
+2022-11-25
+Added search functionality and updated components and fetcher.
+The PlaceAdder and TripAdder components were modified to include a search bar and results.
+
+2022-11-24
+Fixed rendering issues in PlaceAdder and TripAdder components.
+Modified PlaceAdder.js and TripAdder.js to resolve rendering issues.
+
+2022-11-23
+Changed Map component to zoom in on click
+In client/src/components/Map.js, the Map component was modified to zoom in when clicked. This change was made to improve user experience by making it easier to explore the map. The previous behavior required the user to manually adjust the zoom level, which could be time-consuming and frustrating. With the new behavior, the map will automatically zoom in when the user clicks anywhere on it, allowing them to quickly focus on areas of interest.
+
+2022-11-23
+Fixed date picker issue in TripAdder component and updated dependencies.
+The commit includes changes to the client's TripAdder.js file where a date picker issue was identified and resolved. Additionally, the client's package.json and package-lock.json files were updated to reflect the latest dependencies for the project. These changes should improve the functionality and reliability of the date picker in the TripAdder component, ensuring users can accurately select dates for their trips.
+
+2022-11-20
+Homepage re-renders on logout, improvements to several pages and components
+NavBar, AccountPage, FriendsPage, HomePage, and UserPage components were modified. The HomePage now re-renders when a user logs out. The AccountPage, FriendsPage, HomePage, and UserPage were also updated for unspecified improvements. The impact to the user is that the homepage will now update with the latest information after logging out, and the other pages may have minor visual or functional changes.
+
+2022-11-20
+Added ability to remove friends
+Implemented a new feature in the client-side FriendList component to remove friends from the list.
+
+2022-11-19
+Added account management page
+Implemented login form component
+
+2022-11-19
+Fixed a typo in a route definition.
+In server/routes.js, a typo was identified and corrected in a route definition. This typo may have caused errors in routing, potentially leading to incorrect page rendering or other unexpected behavior. The change should have no impact on users, but it ensures that the application functions correctly.
+
+2022-11-17
+Made the user profile page public.
+Updated the UserPage component in client/src/pages to allow public access. Renamed some hashed files in server/public and modified server/routes.js to reflect the change. This will allow any user to view another user's profile without requiring authentication.
+
+2022-11-17
+Implemented login functionality with hashing.
+Updated the client-side code to hash the user's password before sending it to the server.
+
+2022-11-17
+Updated components and server configuration for production deployment
+Renamed client-side bundle files and modified index.html for caching.
+
+2022-11-17
+Fixed a typo in Map.js and renamed bundled files.
+In client/src/components/Map.js, a typo was identified and corrected. Additionally,
+
+2022-11-17
+Removed client-side JavaScript files from public directory.
+The public directory, which is served directly to clients, previously contained several client-side JavaScript files. These files, likely generated during a build process, were no longer needed and have been removed to reduce the size of the directory and the amount of data that needs to be transferred to clients. This change should not impact users directly, but may result in slightly faster page load times.
+
+2022-11-17
+Fixed routing issue and updated various components and index files.
+The commit includes modifications to several components (LoginForm, NavBar, and SignUpForm) and the index files (client and server). The routing issue was resolved, which might have resulted in broken links or incorrect navigation for users. Additionally, there were updates to the public folder on the server side, which could impact the loading of the application's main bundle. Overall, these changes should improve the user experience by ensuring proper navigation and loading of the application.
+
+2022-11-17
+Packaged client and server together
+Combined the client-side and server-side code into a single deployment unit. This was done to simplify the deployment process and make it easier to manage the application as a whole. The client-side components were moved from the server to the client, and the server was updated to only handle API requests. The client now fetches data from the server using the fetch API and renders the components accordingly. This change does not impact the user experience directly but might lead to faster deployments and easier maintenance.
