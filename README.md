@@ -29,6 +29,7 @@ python3 changelog_generator.py --url <your repo url>
 python3 changelog_generator.py --repo_path <your repo url>
 ```
 You can also pass the following optional arguments:
+
 ```--llm_repo_id``` if you would like to choose which LLM to use (your own or one that is publicly hosted on HuggingFace). The default
 LLM is Mistral-7B-Instruct-v0.2
 
