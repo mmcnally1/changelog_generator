@@ -29,11 +29,11 @@ python3 changelog_generator.py --url <your repo url>
 python3 changelog_generator.py --repo_path <your repo url>
 ```
 You can also pass the following optional arguments:
-`--llm_repo_id` if you would like to choose which LLM to use (your own or one that is publicly hosted on HuggingFace)
-`--max_count` if you would like to set a limit on the number of commits to parse (note that the LLM is invoked for each commit
+```--llm_repo_id``` if you would like to choose which LLM to use (your own or one that is publicly hosted on HuggingFace)
+```--max_count``` if you would like to set a limit on the number of commits to parse (note that the LLM is invoked for each commit
 and HuggingFace limits free users to 1000 queries per day)
-`--after` only parse commits after a given date (format MM.DD.YYYY)
-`--before` only parse commits before a given date (format MM.DD.YYYY)
+```--after``` only parse commits after a given date (format MM.DD.YYYY)
+```--before``` only parse commits before a given date (format MM.DD.YYYY)
 
 ### Frontend
 Node >= version 18.17 is required to run the frontend.
@@ -44,3 +44,4 @@ cd frontend
 npm install
 npm run dev
 ```
+You can then view the site at localhost:3000.
