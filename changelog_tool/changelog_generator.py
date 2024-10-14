@@ -31,63 +31,103 @@ class RepoRunner():
         self.cloned_path = None
 
     def remote_repo(self, url, to_path):
+        '''
+        Initialize repo using a remote repository
+        Parmaters:
+            url: string
+                remote repository URL
+            to_path: string
+                location to save temporary cloned repo (deleted on cleanup)
+        '''
         try:
             self.repo = Repo.clone_from(
                 url, to_path=to_path
             )
             self.cloned_path = to_path
+            self.repo_path = url
         except:
             print("Failed to clone repo")
             sys.exit(1)
 
     def local_repo(self, repo_path):
+        '''
+        Initialize repo using a local repository
+        Parameters:
+            repo_path: string
+                path to local directory containing .git folder
+        '''
         try:
             self.repo = Repo(repo_path)
         except InvalidGitRepositoryError:
             print("No git repository found at that location")
             sys.exit(1)
+        self.repo_path = repo_path
 
-    def generate_changelog(self, llm_runner, after=None, before=None, max_count=10):
+    def generate_changelog(self, llm_runner, max_count, after, before):
+        '''
+        Pass git commit history and file diffs to LLM and generate changelog.
+        Parameters:
+            llm_runner: LLM_Runner
+                wrapper class for LLMChain
+            max_count: int
+                maximum number of commits to parse
+            after: string (format MM.DD.YYYY)
+                only parse commits after given date
+            before: string (format MM.DD.YYYY)
+                only parse commits before given date
+        '''
         with open("./changelog", "w") as f:
-          commits = list(self.repo.iter_commits("main", max_count=max_count, after=after, before=before))
-          for i in range(len(commits) - 1):
-            commit_message = commits[i].message
-            commit_date = commits[i].committed_date
-            formatted_time = time.strftime("%Y-%m-%d", time.gmtime(commit_date))
-            f.write(formatted_time + "\n")
-            diff_text = ""
-            for diff in commits[i].diff(commits[i + 1]):
-              match diff.change_type:
-                case "M":
-                  diff_text += "Modified "
-                  diff_text += diff.a_path + "\n"
-                case "A":
-                  diff_text += "Added "
-                  diff_text += diff.a_path + "\n"
-                case "D":
-                  diff_text += "Deleted "
-                  diff_text += diff.a_path + "\n"
-                case "R":
-                  diff_text += "Renamed "
-                  diff_text += diff.a_path + " to " + diff.b_path + "\n"
-                case "C":
-                  diff_text += "Copied\n"
-                  diff_text += diff.a_path + "\n"
+            f.write(self.repo_path + "\n\n")
+            commits = list(self.repo.iter_commits("main", max_count=max_count, after=after, before=before))
+            for i in range(len(commits) - 1):
+                commit_message = commits[i].message
+                commit_date = commits[i].committed_date
+                formatted_time = time.strftime("%Y-%m-%d", time.gmtime(commit_date))
+                diff_text = ""
+                for diff in commits[i].diff(commits[i + 1]):
+                    match diff.change_type:
+                        case "M":
+                            diff_text += "Modified "
+                            diff_text += diff.a_path + "\n"
+                        case "A":
+                            diff_text += "Added "
+                            diff_text += diff.a_path + "\n"
+                        case "D":
+                            diff_text += "Deleted "
+                            diff_text += diff.a_path + "\n"
+                        case "R":
+                            diff_text += "Renamed "
+                            diff_text += diff.a_path + " to " + diff.b_path + "\n"
+                        case "C":
+                            diff_text += "Copied\n"
+                            diff_text += diff.a_path + "\n"
 
-            response = llm_runner.llm_chain.invoke({"commit_message": commit_message, "diff": diff_text})
-            response = response.split("\n")
-            response = list(map(cleanup_output, response))
-            response = [line for line in response if line]
-            summary = response[0] if len(response) > 0 else ""
-            changes = response[1] if len(response) > 1 else ""
-            f.write(summary + "\n")
-            f.write(changes + "\n\n")
+                response = llm_runner.llm_chain.invoke({"commit_message": commit_message, "diff": diff_text})
+                response = response.split("\n")
+                response = list(map(cleanup_output, response))
+                response = [line for line in response if line]
+                if len(response) >= 2:
+                    f.write(formatted_time + "\n")
+                    f.write(response[0] + "\n")
+                    f.write(" ".join(response[1:]) + "\n\n")
+
 
     def cleanup(self):
+        '''
+        Delete cloned repository
+        '''
         if self.cloned_path:
             shutil.rmtree(self.cloned_path)
 
 def cleanup_output(x):
+    '''
+    Reomve extraneous LLM output
+    Parameters:
+        x: string
+            text returned by LLM for a single commit
+    Returns:
+        string
+    '''
     x = x.lstrip(string.punctuation)
     x = x.replace("Summary:", "")
     x = x.replace("Changes:", "")
@@ -96,9 +136,12 @@ def cleanup_output(x):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--url", help="url to clone repo from")
-    parser.add_argument("--repo_path", help="path to local repo")
-    parser.add_argument("--llm_repo_id", help="repo id of HuggingFace LLM", default="mistralai/Mistral-7B-Instruct-v0.2")
+    parser.add_argument("--url", help="URL to clone repo from")
+    parser.add_argument("--repo_path", help="Path to local repo")
+    parser.add_argument("--llm_repo_id", help="Repo id of HuggingFace LLM", default="mistralai/Mistral-7B-Instruct-v0.2")
+    parser.add_argument("--max_count", help="Only parse a given number of commits", default=20)
+    parser.add_argument("--after", help="Only parse commits after given date. Format: MM.DD.YYYY", default=None)
+    parser.add_argument("--before", help="Only parse commits before given date. Format: MM.DD.YYYY", default=None)
     args = parser.parse_args()
 
     if args.url and args.repo_path:
@@ -138,5 +181,5 @@ if __name__ == "__main__":
 
     llm_runner = LLMRunner(template, input_variables, args.llm_repo_id)
 
-    repo_runner.generate_changelog(llm_runner)
+    repo_runner.generate_changelog(llm_runner, args.max_count, args.after, args.before)
     repo_runner.cleanup()

@@ -1,77 +1,74 @@
 https://github.com/mmcnally1/iTinerary
 
 2022-11-26
-Fixed headers and updated edit date in AccountPage and adjusted file names and map files in the server.
-In client/src/pages/AccountPage.js, headers were corrected and the edit date was edited. In server, the file names and corresponding map files for index.js were updated. These changes ensure the correct display of headers and the accurate tracking of edit dates in the AccountPage, as well as proper handling of JavaScript files in the server.
+Fixed headers and edited date in AccountPage and updated index.html and routes.js
+In client/src/pages/AccountPage.js, headers were fixed and the edit date was updated. In server/public/index.html, the script file names were updated. In server/routes.js, the script file names were also updated to reflect the new names. These changes ensure that the correct scripts are loaded when the application is run. The update to the edit date in AccountPage might impact users who rely on the displayed date for important information. However, this
 
 2022-11-26
-Added a feature to delete places from a trip.
-In server/routes.js, a new route was added to handle the request to delete places from a trip. The request is handled by a new controller function that deletes the places from the associated trip and returns a response to the client. This feature allows users to remove places they no longer want on their trip, providing more flexibility and control over their itinerary.
+Added functionality to delete places from a trip
+Modified server/routes.js to include a new endpoint for deleting places from a trip. This will allow users to remove unwanted locations from their trips, making it easier for them to manage their travel plans. The request body will contain the trip ID and the place ID to be deleted. The response will indicate whether the deletion was successful or not. This feature will enhance the user experience by giving them more control over their trips.
 
 2022-11-26
-Escaped quotes were added to PlaceAdder.js description input.
-The server side file names were updated.
+Escaped quotes in description input were corrected.
+In client/src/components/PlaceAdder.js, the issue with escaped quotes in description input was resolved. This could potentially cause errors in the application and prevent users from successfully adding a place. The correction ensures that user input for place descriptions is properly processed and displayed. Additionally, in server/public, the filenames and corresponding map files were renamed to maintain version control.
 
 2022-11-26
-Fixed issues with editing trips and places
-Modified components PlaceTable.js and TripTable.js to support editing.
+Implemented edit functionality for trips and places.
+Renamed and modified several files to support editing. The PlaceTable and TripTable components were removed and replaced with EditablePlaceTable and EditableTripTable. The fetcher was updated to support PUT requests for editing data. The AccountPage was modified to include edit forms for trips and places. These changes will allow users to edit their trips and places directly from their account page.
 
 2022-11-25
-Added search functionality and updated components and fetcher.
-The PlaceAdder and TripAdder components were modified to include a search bar and results.
+Added search functionality to the application.
+Modified the PlaceAdder and TripAdder components to include search functionality. Updated fetcher.js to include search queries in API requests. Renamed and added new files to server/public for improved performance. The user can now search for places and trips based on keywords, making it easier to find specific content.
 
 2022-11-24
 Fixed rendering issues in PlaceAdder and TripAdder components.
-Modified PlaceAdder.js and TripAdder.js to resolve rendering issues.
+Modified the PlaceAdder and TripAdder components in the client/src/components directory. The rendering issues were causing inconsistent display of data, which has been resolved. This update should improve the user experience by ensuring that the components render correctly and consistently.
 
 2022-11-23
-Changed Map component to zoom in on click
-In client/src/components/Map.js, the Map component was modified to zoom in when clicked. This change was made to improve user experience by making it easier to explore the map. The previous behavior required the user to manually adjust the zoom level, which could be time-consuming and frustrating. With the new behavior, the map will automatically zoom in when the user clicks anywhere on it, allowing them to quickly focus on areas of interest.
-
-2022-11-23
-Fixed date picker issue in TripAdder component and updated dependencies.
-The commit includes changes to the client's TripAdder.js file where a date picker issue was identified and resolved. Additionally, the client's package.json and package-lock.json files were updated to reflect the latest dependencies for the project. These changes should improve the functionality and reliability of the date picker in the TripAdder component, ensuring users can accurately select dates for their trips.
+Fixed date picker issue in TripAdder component.
+The commit includes modifications to the client-side package.json and src/components/TripAdder.js files, as well as updates to the server-side index.html and routes.js files. The issue with the date picker in the TripAdder component was resolved. This change should not impact users directly, but it ensures the date picker functionality is working properly for the developers building and testing the application.
 
 2022-11-20
-Homepage re-renders on logout, improvements to several pages and components
-NavBar, AccountPage, FriendsPage, HomePage, and UserPage components were modified. The HomePage now re-renders when a user logs out. The AccountPage, FriendsPage, HomePage, and UserPage were also updated for unspecified improvements. The impact to the user is that the homepage will now update with the latest information after logging out, and the other pages may have minor visual or functional changes.
+Homepage re-renders on logout, changes to NavBar and several pages.
+The NavBar component and several pages (AccountPage, FriendsPage, HomePage, UserPage) were modified. The reason for these changes was to ensure the homepage re-renders when a user logs out. The impact on a user is that they will see the homepage update with the latest content after logging out. The server-side files (index.html and routes.js) were also updated, likely to support the changes made to the client-side.
 
 2022-11-20
-Added ability to remove friends
-Implemented a new feature in the client-side FriendList component to remove friends from the list.
+Added functionality to remove friends
+Client-side: Implemented UI for removing friends in FriendList component Server-side: Added API route for removing friends and updated FriendsPage to handle response Users can now remove friends from their list, and the change will be reflected on both sides.
 
 2022-11-19
 Added account management page
-Implemented login form component
+Implemented account login functionality in LoginForm component. Updated NavBar component to include a link to the account management page. Created a new AccountPage component for displaying account information. Fetched user data from the server using the fetcher.js utility. Routes were updated in routes.js to include the account page. The old index.html file was updated to render the new AccountPage component. Users can now log in and view their account information on the account management page.
 
 2022-11-19
-Fixed a typo in a route definition.
-In server/routes.js, a typo was identified and corrected in a route definition. This typo may have caused errors in routing, potentially leading to incorrect page rendering or other unexpected behavior. The change should have no impact on users, but it ensures that the application functions correctly.
+Fixed a typo in server/routes.js file
+A typo was identified and corrected in the server/routes.js file. This typo could potentially cause errors in the application if it was reached during routing. The correction of this typo ensures that the application continues to function correctly. Users should not notice any difference in their experience as a result of this commit.
 
 2022-11-17
-Made the user profile page public.
-Updated the UserPage component in client/src/pages to allow public access. Renamed some hashed files in server/public and modified server/routes.js to reflect the change. This will allow any user to view another user's profile without requiring authentication.
+Made user profile public
+Updated UserPage component to allow public access Renamed and updated index files and routes This change will allow anyone to view a user's profile without requiring authentication.
 
 2022-11-17
-Implemented login functionality with hashing.
-Updated the client-side code to hash the user's password before sending it to the server.
+Implemented login functionality using hashing
+Updated the fetcher.js file to include hashing logic. Modified the LoginForm and SignUpForm components to use the new hashing functionality. The server-side index.js file was also updated to handle the hashed passwords. This commit should allow users to securely log in to the application using their email and password. Previously, the passwords were not being hashed before being sent to the server.
 
 2022-11-17
-Updated components and server configuration for production deployment
-Renamed client-side bundle files and modified index.html for caching.
+The app has been deployed to Heroku and some changes were made to the client and server code.
+In the client, the FriendList component was renamed. In the server, a new file was added and some old files were renamed and deleted. These changes were necessary to ensure the app functions properly on Heroku. The impact on the user is that they will experience improved performance and reliability when using the app.
 
 2022-11-17
-Fixed a typo in Map.js and renamed bundled files.
-In client/src/components/Map.js, a typo was identified and corrected. Additionally,
+Fixed a typo in Map component and renamed some bundles and HTML files
+In client/src/components/Map.js, a typo was identified and corrected. In addition, some JavaScript bundle files and the HTML file in the server/public directory were renamed due to a build issue. These changes will not impact the functionality of the application, but may improve the consistency and organization of the project files.
 
 2022-11-17
-Removed client-side JavaScript files from public directory.
-The public directory, which is served directly to clients, previously contained several client-side JavaScript files. These files, likely generated during a build process, were no longer needed and have been removed to reduce the size of the directory and the amount of data that needs to be transferred to clients. This change should not impact users directly, but may result in slightly faster page load times.
+Removed client-side bundle files from the public directory
+The server/public directory previously contained client-side bundle files, but these files are now being served by a separate CDN. As a result, these files have been removed from the project's repository to reduce unnecessary clutter and improve build performance. This change will not impact users as they will continue to access the same client-side resources via the CDN.
 
 2022-11-17
-Fixed routing issue and updated various components and index files.
-The commit includes modifications to several components (LoginForm, NavBar, and SignUpForm) and the index files (client and server). The routing issue was resolved, which might have resulted in broken links or incorrect navigation for users. Additionally, there were updates to the public folder on the server side, which could impact the loading of the application's main bundle. Overall, these changes should improve the user experience by ensuring proper navigation and loading of the application.
+Fixed routing issue and updated various components.
+The .gitignore file was modified to exclude unnecessary files. The client-side components LoginForm, NavBar, and SignUpForm were updated. The server-side index.js file was also updated. The routing issue prevented users from accessing certain pages, and the updates ensure that users can navigate the application correctly. Users should now have a smoother experience when using the login and sign up forms, and the navigation bar.
 
 2022-11-17
 Packaged client and server together
-Combined the client-side and server-side code into a single deployment unit. This was done to simplify the deployment process and make it easier to manage the application as a whole. The client-side components were moved from the server to the client, and the server was updated to only handle API requests. The client now fetches data from the server using the fetch API and renders the components accordingly. This change does not impact the user experience directly but might lead to faster deployments and easier maintenance.
+Combined client-side components and logic with server-side functionality. Removed unnecessary files from server directory. Renamed index.js to server.js in server directory. Users will now have a single deployable package containing both client and server code. This simplifies deployment and management of the application.
+
