@@ -11,7 +11,7 @@ of the changelog in a browser (it is not deployed so it will run on localhost).
 ## Running the programs
 ### Changelog Generator
 A HuggingFace API key is required to run the changelog generator. They are free to create and use, and
-instructions for creating one can be found [here] (https://www.geeksforgeeks.org/how-to-access-huggingface-api-key/). Once you have
+instructions for creating one can be found at (https://www.geeksforgeeks.org/how-to-access-huggingface-api-key/). Once you have
 your API key, store it in a `.env` file in the changelog_tool folder under the variable name HF_TOKEN.
 Then you can install the dependencies (the dependencies may take 10-15 to install, and Python >= 3.10
 is required):
