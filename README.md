@@ -30,10 +30,13 @@ python3 changelog_generator.py --repo_path <your repo url>
 ```
 You can also pass the following optional arguments:
 ```--llm_repo_id``` if you would like to choose which LLM to use (your own or one that is publicly hosted on HuggingFace). The default
-LLM is Mistral-7B-Instruct-v0.2.
+LLM is Mistral-7B-Instruct-v0.2
+
 ```--max_count``` if you would like to set a limit on the number of commits to parse (note that the LLM is invoked for each commit
-and HuggingFace limits free users to 1000 queries per day). The default is 20.
-```--after``` only parse commits after a given date (format MM.DD.YYYY).
+and HuggingFace limits free users to 1000 queries per day). The default is 20
+
+```--after``` only parse commits after a given date (format MM.DD.YYYY)
+
 ```--before``` only parse commits before a given date (format MM.DD.YYYY)
 
 ### Frontend
