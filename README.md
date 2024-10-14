@@ -13,9 +13,10 @@ of the changelog in a browser (it is not deployed so it will run on localhost).
 A HuggingFace API key is required to run the changelog generator. They are free to create and use, and
 instructions for creating one can be found at (https://www.geeksforgeeks.org/how-to-access-huggingface-api-key/). Once you have
 your API key, store it in a `.env` file in the changelog_tool folder under the variable name HF_TOKEN.
-Then you can install the dependencies (the dependencies may take 10-15 to install, and Python >= 3.10
+Then you can install the dependencies (the dependencies may take 10-15 minutes to install, and Python >= 3.10
 is required):
 ```
+cd changelog_tool
 pip install -r requirements.txt
 ```
 and run the program:
@@ -33,3 +34,13 @@ You can also pass the following optional arguments:
 and HuggingFace limits free users to 1000 queries per day)
 `--after` only parse commits after a given date (format MM.DD.YYYY)
 `--before` only parse commits before a given date (format MM.DD.YYYY)
+
+### Frontend
+Node >= version 18.17 is required to run the frontend.
+First, copy or move the generated changelog file to the `frontend/changelog` folder (or keep the sample one that is there) then
+run
+```
+cd frontend
+npm install
+npm run dev
+```
