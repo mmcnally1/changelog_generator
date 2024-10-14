@@ -1,3 +1,5 @@
+https://github.com/mmcnally1/iTinerary
+
 2022-11-26
 Fixed headers and updated edit date in AccountPage and adjusted file names and map files in the server.
 In client/src/pages/AccountPage.js, headers were corrected and the edit date was edited. In server, the file names and corresponding map files for index.js were updated. These changes ensure the correct display of headers and the accurate tracking of edit dates in the AccountPage, as well as proper handling of JavaScript files in the server.

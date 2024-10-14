@@ -1,0 +1,13 @@
+.header {
+    margin-left: 22rem;
+}
+
+.description {
+    margin-left: 20.5rem;
+    padding-bottom: 1rem;
+}
+
+.page_body {
+    border: solid gray;
+    border-radius: 7px;
+}
